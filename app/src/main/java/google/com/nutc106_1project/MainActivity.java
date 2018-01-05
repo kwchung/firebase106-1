@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txt_addPost;
     private Button btn_submit;
     private FirebaseDatabase database;
+    private String TAG = "CKW-Posts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Posts p = dataSnapshot.getValue(Posts.class);
-                Log.d("CKW-Posts", "onChildAdded: " + p.getMessage());
+                Log.d(TAG, "onChildAdded: " + p.getMessage());
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Posts p = dataSnapshot.getValue(Posts.class);
-                Log.d("CKW-Posts", "onChildChanged: " + p.getMessage());
+                Log.d(TAG, "onChildChanged: " + p.getMessage());
             }
 
             @Override
