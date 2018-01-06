@@ -1,5 +1,6 @@
 package google.com.nutc106_1project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -24,11 +25,14 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txt_email;
     private TextView txt_pwd;
     private String TAG = "CKW-Login";
+    private MyFirebaseInstanceIdService MyId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Intent intent = new Intent(this, MyFirebaseInstanceIdService.class);
+        this.startService(intent);
 
         txt_email = (TextView) findViewById(R.id.txt_email);
         txt_pwd = (TextView)findViewById(R.id.txt_pwd);
@@ -58,10 +62,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
         btn_login.setOnClickListener(new View.OnClickListener() {
-            String email = txt_email.getText().toString();
-            String password = txt_pwd.getText().toString();
             @Override
             public void onClick(View view) {
+                String email = txt_email.getText().toString();
+                String password = txt_pwd.getText().toString();
+                Log.d(TAG, "setOnClickListener:"+email+password);
+
                 final Task<AuthResult> authResultTask = mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
 
@@ -77,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else{
                                     Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
                                     // 指定要呼叫的 Activity Class
                                     Intent newAct = new Intent();
                                     newAct.setClass( LoginActivity.this, MainActivity.class );
