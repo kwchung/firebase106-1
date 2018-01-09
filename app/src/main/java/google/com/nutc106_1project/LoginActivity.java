@@ -12,11 +12,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -26,13 +29,22 @@ public class LoginActivity extends AppCompatActivity {
     private TextView txt_pwd;
     private String TAG = "CKW-Login";
     private MyFirebaseInstanceIdService MyId;
-
+    private static final int RC_SIGN_IN = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Intent intent = new Intent(this, MyFirebaseInstanceIdService.class);
         this.startService(intent);
+
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setProviders(
+                                Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                        new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                        .build(),
+                RC_SIGN_IN);
 
         txt_email = (TextView) findViewById(R.id.txt_email);
         txt_pwd = (TextView)findViewById(R.id.txt_pwd);
@@ -108,6 +120,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            Intent intent = new Intent(this, MyFirebaseInstanceIdService.class);
+            this.startService(intent);
+            Intent newAct = new Intent();
+            newAct.setClass( LoginActivity.this, MainActivity.class );
+            // 呼叫新的 Activity Class
+            startActivity( newAct );
+            // 結束原先的 Activity Class
+            LoginActivity.this.finish();
         }
     }
 }

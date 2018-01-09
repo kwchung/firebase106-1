@@ -41,17 +41,17 @@ public class MainActivity extends AppCompatActivity {
         this.startService(intent);
 
         database = FirebaseDatabase.getInstance();
-        final DatabaseReference posts = database.getReference().child("posts");
+        final DatabaseReference notifications = database.getReference().child("notifications");
         txt_addPost = (TextView) findViewById(R.id.txt_addPost);
         btn_submit = (Button) findViewById(R.id.btn_submit);
         lv = (ListView)findViewById(R.id.lv);
 
-        posts.addChildEventListener(new ChildEventListener() {
+        notifications.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Posts p = dataSnapshot.getValue(Posts.class);
-                Log.d(TAG, "onChildAdded: " + p.getMessage());
-                PostsList.add(p.getMessage());
+                Notifications n = dataSnapshot.getValue(Notifications.class);
+                Log.d(TAG, "onChildAdded: " + n.getMessage());
+                PostsList.add(n.getMessage());
                 ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),
                         android.R.layout.simple_expandable_list_item_1,
                         PostsList);
@@ -64,7 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                Notifications n = dataSnapshot.getValue(Notifications.class);
+                Log.d(TAG, "onChildRemoved: " + n.getMessage());
+                PostsList.remove(n.getMessage());
+                ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),
+                        android.R.layout.simple_expandable_list_item_1,
+                        PostsList);
+                lv.setAdapter(adapter);
             }
 
             @Override
@@ -81,11 +87,12 @@ public class MainActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String key = posts.push().getKey();
-                Posts p = new Posts();
-                p.setUid(key);
-                p.setMessage(txt_addPost.getText().toString());
-                posts.child(key).setValue(p);
+                String key = notifications.push().getKey();
+                Notifications  n= new Notifications();
+                n.setMessage(txt_addPost.getText().toString());
+                n.setUser("");
+                n.setUserAvatar("");
+                notifications.child(key).setValue(n);
             }
         });
     }

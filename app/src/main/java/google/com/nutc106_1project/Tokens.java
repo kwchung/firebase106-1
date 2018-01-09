@@ -1,13 +1,22 @@
 package google.com.nutc106_1project;
 
 public class Tokens {
-    private String tokenId;
+    private String token;
+    private String uid;
 
-    public String getTokenId() {
-        return this.tokenId;
+    public String getToken() {
+        return this.token;
     }
 
-    public void setTokenId(String token) {
-        this.tokenId = token;
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getUid() {
+        return this.uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

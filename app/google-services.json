@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "640934542046",
+    "firebase_url": "https://nutc106-1project.firebaseio.com",
+    "project_id": "nutc106-1project",
+    "storage_bucket": "nutc106-1project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640934542046:android:96ac769297f10903",
+        "android_client_info": {
+          "package_name": "google.com.nutc106_1project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640934542046-kdddkg5ip0cf2d9kijt0rhk3fit37h81.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "google.com.nutc106_1project",
+            "certificate_hash": "6316e3c1fbfbe305ade13d9e7a47b050c8492ea6"
+          }
+        },
+        {
+          "client_id": "640934542046-alhev43t89ukdami9ctqvvi3lmsajkln.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "640934542046-jefu4vm841tfp30qkba8vv1v57f7vn4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO3hjiqGD5iHieXY9raLlCPYbso3tPeFA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640934542046-alhev43t89ukdami9ctqvvi3lmsajkln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

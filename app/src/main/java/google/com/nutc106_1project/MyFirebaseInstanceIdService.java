@@ -80,7 +80,8 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
     private void sendRegistrationToServer(String refreshedToken) {
         Tokens t = new Tokens();
-        t.setTokenId(refreshedToken);
+        t.setToken(refreshedToken);
+        t.setUid(refreshedToken);
         tokens.child(key).setValue(t);
     }
 }
